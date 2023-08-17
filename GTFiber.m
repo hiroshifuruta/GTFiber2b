@@ -30,7 +30,7 @@ function varargout = GTFiber(varargin)
 
 % Edit the above text to modify the response to help GTFiber
 
-% Last Modified by GUIDE v2.5 17-Aug-2023 18:22:10
+% Last Modified by GUIDE v2.5 17-Aug-2023 23:56:12
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -677,9 +677,76 @@ function Load_Setting_Callback(hObject, eventdata, handles)
 % hObject    handle to Load_Setting (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+handles.ims.settings = get_settings(handles);
+handles.ims = pix_settings(handles.ims);
 [filename, folderpath] = uigetfile({'*.mat','mat File'});
+[filepath0,filename_wo_ext,ext0] = fileparts(filename);
 if isequal(filename, 0); return; end % Cancel button pressed
 fileNameLastSetting = [folderpath, filename];
-handles.ims.settings = load(fileNameLastSetting);
-set(handles.nmWid,'String',handles.ims.nmWid);
+tempSettings = load(fileNameLastSetting, filename_wo_ext);
+handles.ims.settings = tempSettings.(filename_wo_ext);
+clear('tempSettings');
+set_settings(handles);
+
 guidata(hObject, handles);
+
+function set_settings(handles)
+nmWid = handles.ims.settings.nmWid;
+invert = handles.ims.settings.invert;
+thnm = handles.ims.settings.thnm;
+noisenm = handles.ims.settings.noisenm;
+maxBranchSizenm = handles.ims.settings.maxBranchSizenm;
+globalThresh = handles.ims.settings.globalThresh;
+threshMethod = handles.ims.settings.threshMethod;
+figSave = handles.ims.settings.figSave;
+gaussnm = handles.ims.settings.gaussnm;
+rhonm = handles.ims.settings.rhonm;
+Options = handles.ims.settings.Options;
+fibWidSamps2 = handles.ims.settings.fibWidSamps2;
+fiberStep_nm = handles.ims.settings.fiberStep_nm;
+maxCurv = handles.ims.settings.maxCurv;
+stitchGap = handles.ims.settings.stitchGap;
+minFibLen = handles.ims.settings.minFibLen;
+initDelay = handles.ims.settings.initDelay;
+CEDStepDelay = handles.ims.settings.CEDStepDelay;
+CEDFinalDelay = handles.ims.settings.CEDFinalDelay;
+skelDelay = handles.ims.settings.skelDelay;
+plotDelay = handles.ims.settings.plotDelay;
+plotFinal = handles.ims.settings.plotFinal;
+thpix = handles.ims.settings.thpix;
+noisepix = handles.ims.settings.noisepix;
+maxBranchSize = handles.ims.settings.maxBranchSize;
+fiberStep = handles.ims.settings.fiberStep;
+searchLat = handles.ims.settings.searchLat;
+searchLong = handles.ims.settings.searchLong;
+
+
+set(handles.nmWid, 'String', num2str(nmWid));
+set(handles.invertColor,'Value', invert);
+set(handles.tophatSize, 'String', num2str(thnm));
+set(handles.noiseArea, 'String', num2str(noisenm));
+set(handles.maxBranchSize, 'String', num2str(maxBranchSizenm));
+set(handles.globalThresh, 'String', num2str(globalThresh));
+
+set(handles.threshMethod, 'Value', threshMethod);
+
+set(handles.saveFigs, 'Value', figSave);
+set(handles.gauss, 'String', num2str(gaussnm));
+set(handles.rho, 'String', num2str(rhonm));
+set(handles.difftime, 'String', num2str(Options.T));
+%set(handles.fibWidSamps2, 'String', num2str(fibWidSamps2));
+set(handles.fiberStep, 'String', num2str(fiberStep_nm));
+set(handles.maxCurv, 'String', num2str(maxCurv*1000));
+set(handles.stitchGap, 'String', num2str(stitchGap));
+set(handles.minFibLen, 'String', num2str(minFibLen));
+%set(handles.initDelay, 'String', num2str(initDelay));
+%set(handles.CEDStepDelay, 'String', num2str(CEDStepDelay));
+%set(handles.CEDFinalDelay, 'String', num2str(CEDFinalDelay));
+%set(handles.skelDelay, 'String', num2str(skelDelay));
+%set(handles.plotDelay, 'String', num2str(plotDelay));
+%set(handles.plotFinal, 'String', num2str(plotFinal));
+%set(handles.thpix, 'String', num2str(thpix));
+%set(handles.noisepix, 'String', num2str(noisepix));
+%set(handles.maxBranchSize, 'String', num2str(maxBranchSize));
+%set(handles.searchLat, 'String', num2str(searchLat));
+%set(handles.searchLong, 'String', num2str(searchLong));
