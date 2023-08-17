@@ -30,7 +30,7 @@ function varargout = GTFiber(varargin)
 
 % Edit the above text to modify the response to help GTFiber
 
-% Last Modified by GUIDE v2.5 16-Jun-2017 18:55:55
+% Last Modified by GUIDE v2.5 17-Aug-2023 18:22:10
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -57,7 +57,7 @@ function GTFiber_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for GTFiber
 handles.output = hObject;
 % addpath(genpath('./'))
-
+addpath(genpath(pwd));
 % Update handles structure
 guidata(hObject, handles);
 
@@ -115,6 +115,11 @@ guidata(hObject, handles);
 
 
 function runStitch_Callback(hObject, eventdata, handles)
+
+if ~isfield(handles,'ims')
+    noload = errordlg('Go to File>Load Image to load an image, then "Run Filter" and "Stitch Filter".');
+    return
+end
 
 if ~isfield(handles.ims,'skelTrim')
     noload = errordlg('Go to File>Load Image to load an image, then Run Filter.');
@@ -600,3 +605,81 @@ function edit20_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --------------------------------------------------------------------
+function Export_Callback(hObject, eventdata, handles)
+% hObject    handle to Export (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+if ~isfield(handles,'ims')
+    noload = errordlg('Go to File>Load Image to load an image before exporting.');
+    return
+end
+
+if ~isfield(handles.ims,'Fibers')
+    nofilt = errordlg('"Stitch Fibers" must be executed before results can be exported.');
+    return
+end
+
+[outputFolderName,name0, ext0] = fileparts(handles.ims.imPath);
+%addpath(genpath(folderNameLength));
+disp('exporting length and width in ', outputFolderName);
+%disp(outputFolderName);
+fileNameLength = fullfile(outputFolderName,strcat(handles.ims.imName,'_FLD.txt'));
+fileNameWidth = fullfile(outputFolderName,strcat(handles.ims.imName,'_FWD.txt'));
+%disp(fileNameLength);
+%save(fileNameLength,'ims');
+writematrix(handles.ims.FLD, fileNameLength);
+disp('list of length was saved in', fileNameLength);
+writematrix(transpose(handles.ims.FWD), fileNameWidth);
+disp('list of width was saved in', fileNameWidth);
+
+
+% --- Executes on button press in pushbuttonExportResults13.
+function pushbuttonExportResults13_Callback(hObject, eventdata, handles)
+% hObject    handle to pushbuttonExportResults13 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+Export_Callback(hObject, eventdata, handles); % call Export_Callback function from menu
+
+
+% --------------------------------------------------------------------
+function Save_Setting_Callback(hObject, eventdata, handles)
+% hObject    handle to Save_Setting (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+last_settings = handles.ims.settings;
+save('last_settings', "last_settings");
+disp("settings saved to last_settings");
+
+
+% --- If Enable == 'on', executes on mouse press in 5 pixel border.
+% --- Otherwise, executes on mouse press in 5 pixel border or over fileNameBox.
+function fileNameBox_ButtonDownFcn(hObject, eventdata, handles)
+% hObject    handle to fileNameBox (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+Load_Callback(hObject, eventdata, handles);
+
+
+% --- Executes during object creation, after setting all properties.
+function fileNameBox_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to fileNameBox (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+
+% --------------------------------------------------------------------
+function Load_Setting_Callback(hObject, eventdata, handles)
+% hObject    handle to Load_Setting (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+[filename, folderpath] = uigetfile({'*.mat','mat File'});
+if isequal(filename, 0); return; end % Cancel button pressed
+fileNameLastSetting = [folderpath, filename];
+handles.ims.settings = load(fileNameLastSetting);
+set(handles.nmWid,'String',handles.ims.nmWid);
+guidata(hObject, handles);

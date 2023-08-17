@@ -57,6 +57,7 @@ waitbar(0.9,hwait,'Recovering Orientations...');
 ims.AngMap = atand(ims.v1x./-ims.v1y);
 
 handles.ims = ims;
+disp('Run Filter finished.');
 % save('filter_debug','ims')
 close(hwait)
 
