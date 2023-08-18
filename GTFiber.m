@@ -57,7 +57,11 @@ function GTFiber_OpeningFcn(hObject, eventdata, handles, varargin)
 % Choose default command line output for GTFiber
 handles.output = hObject;
 % addpath(genpath('./'))
-addpath(genpath(pwd));
+
+if ~(ismcc || isdeployed)
+    addpath(genpath(pwd)); % MATLAB:mpath:PathAlterationNotSupported in compiled application mode.
+end
+
 % Update handles structure
 guidata(hObject, handles);
 
@@ -630,7 +634,7 @@ disp(['exporting length and width in ', outputFolderName]);
 fileNameLength = fullfile(outputFolderName,strcat(handles.ims.imName,'_FLD.txt'));
 fileNameWidth = fullfile(outputFolderName,strcat(handles.ims.imName,'_FWD.txt'));
 %disp(fileNameLength);
-%save(fileNameLength,'ims');
+%(fileNameLength,'ims');
 writematrix(handles.ims.FLD, fileNameLength);
 disp(['list of length was saved in', fileNameLength]);
 writematrix(transpose(handles.ims.FWD), fileNameWidth);
