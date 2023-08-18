@@ -52,7 +52,7 @@ disp('Calculated with Current settings of');
 disp(ims.settings);
 
 [folderPath,fileName, ext0] = fileparts(ims.imPath);
-saveFileNameLastResult = fullfile(folderPath,[filename,'_last_result']);
+saveFileNameLastResult = fullfile(folderPath,[fileName,'_last_result']);
 save(saveFileNameLastResult,'ims');
 disp(['last_result was saved in ', saveFileNameLastResult]);
 
