@@ -625,16 +625,16 @@ end
 
 [outputFolderName,name0, ext0] = fileparts(handles.ims.imPath);
 %addpath(genpath(folderNameLength));
-disp('exporting length and width in ', outputFolderName);
+disp(['exporting length and width in ', outputFolderName]);
 %disp(outputFolderName);
 fileNameLength = fullfile(outputFolderName,strcat(handles.ims.imName,'_FLD.txt'));
 fileNameWidth = fullfile(outputFolderName,strcat(handles.ims.imName,'_FWD.txt'));
 %disp(fileNameLength);
 %save(fileNameLength,'ims');
 writematrix(handles.ims.FLD, fileNameLength);
-disp('list of length was saved in', fileNameLength);
+disp(['list of length was saved in', fileNameLength]);
 writematrix(transpose(handles.ims.FWD), fileNameWidth);
-disp('list of width was saved in', fileNameWidth);
+disp(['list of width was saved in', fileNameWidth]);
 
 
 % --- Executes on button press in pushbuttonExportResults13.

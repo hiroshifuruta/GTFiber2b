@@ -1,18 +1,18 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber.prj" location="/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac" name="GTFiber" target="target.ezdeploy.standalone" target-name="Application Compiler">
-    <param.appname>GTFiber</param.appname>
+  <configuration file="C:\Users\fur\MATLAB\Projects\GTFiber2b\GTFiber.prj" location="C:\Users\fur\MATLAB\Projects\GTFiber2b" name="GTFiber" target="target.ezdeploy.standalone" target-name="Application Compiler">
+    <param.appname>GTFiber2b</param.appname>
     <param.icon />
     <param.icons />
     <param.version>2.0</param.version>
-    <param.authnamewatermark>Nils Persson</param.authnamewatermark>
-    <param.email>nils.persson@chbe.gatech.edu</param.email>
+    <param.authnamewatermark />
+    <param.email />
     <param.company>Georgia Institute of Technology</param.company>
     <param.summary />
     <param.description />
-    <param.screenshot>${PROJECT_ROOT}/my splash.png</param.screenshot>
+    <param.screenshot>${PROJECT_ROOT}\my splash.png</param.screenshot>
     <param.guid />
-    <param.installpath.string>/Georgia_Institute_of_Technology/GTFiber/</param.installpath.string>
-    <param.installpath.combo>option.installpath.systemwideapp</param.installpath.combo>
+    <param.installpath.string>\Georgia Institute of Technology\GTFiber2b\</param.installpath.string>
+    <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
     <param.logo />
     <param.install.notes>In the following directions, replace MCR_ROOT by the directory where the MATLAB Runtime is installed on the target machine.
 
@@ -29,13 +29,12 @@ If it is defined, set it to the concatenation of these strings:
     MCR_ROOT/v91/sys/os/maci64:
     MCR_ROOT/v91/bin/maci64</param.install.notes>
     <param.target.install.notes />
-    <param.intermediate>${PROJECT_ROOT}/GTFiber/for_testing</param.intermediate>
-    <param.files.only>${PROJECT_ROOT}/GTFiber/for_redistribution_files_only</param.files.only>
-    <param.output>${PROJECT_ROOT}/GTFiber/for_redistribution</param.output>
-    <param.logdir>${PROJECT_ROOT}/GTFiber</param.logdir>
+    <param.intermediate>${PROJECT_ROOT}\GTFiber\for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}\GTFiber\for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}\GTFiber\for_redistribution</param.output>
+    <param.logdir>${PROJECT_ROOT}\GTFiber</param.logdir>
     <param.enable.clean.build>false</param.enable.clean.build>
     <param.user.defined.mcr.options />
-    <param.embed.ctf>true</param.embed.ctf>
     <param.target.type>subtarget.standalone</param.target.type>
     <param.support.packages />
     <param.web.mcr>true</param.web.mcr>
@@ -47,6 +46,15 @@ If it is defined, set it to the concatenation of these strings:
     <param.windows.command.prompt>false</param.windows.command.prompt>
     <param.create.log>false</param.create.log>
     <param.log.file />
+    <param.native.matlab>false</param.native.matlab>
+    <param.checkbox>false</param.checkbox>
+    <param.example />
+    <param.help.text>Syntax 
+	 GTFiber2b -? 
+	 GTFiber2b varargin 
+ Input Arguments 
+	 -?  print help on how to use the application 
+	 varargin  input arguments</param.help.text>
     <unset>
       <param.icon />
       <param.icons />
@@ -65,7 +73,6 @@ If it is defined, set it to the concatenation of these strings:
       <param.logdir />
       <param.enable.clean.build />
       <param.user.defined.mcr.options />
-      <param.embed.ctf />
       <param.target.type />
       <param.support.packages />
       <param.web.mcr />
@@ -74,136 +81,131 @@ If it is defined, set it to the concatenation of these strings:
       <param.web.mcr.name />
       <param.package.mcr.name />
       <param.no.mcr.name />
-      <param.windows.command.prompt />
       <param.create.log />
       <param.log.file />
+      <param.native.matlab />
+      <param.checkbox />
+      <param.example />
     </unset>
     <fileset.main>
-      <file>${PROJECT_ROOT}/GTFiber.m</file>
+      <file>${PROJECT_ROOT}\GTFiber.m</file>
     </fileset.main>
     <fileset.resources />
     <fileset.package />
     <fileset.depfun>
-      <file>${PROJECT_ROOT}/Functions/Analysis/FiberLengths.m</file>
-      <file>${PROJECT_ROOT}/Functions/Analysis/FiberWidths.m</file>
-      <file>${PROJECT_ROOT}/Functions/Analysis/calc_orient_dist.m</file>
-      <file>${PROJECT_ROOT}/Functions/Analysis/op2d_vec.m</file>
-      <file>${PROJECT_ROOT}/Functions/ImageProcessing/CleanSkeleton.m</file>
-      <file>${PROJECT_ROOT}/Functions/ImageProcessing/RemoveBranches.m</file>
-      <file>${PROJECT_ROOT}/Functions/ImageProcessing/RemoveNonLines.m</file>
-      <file>${PROJECT_ROOT}/Functions/ImageProcessing/initImgData.m</file>
-      <file>${PROJECT_ROOT}/Functions/ImageProcessing/main_filter.m</file>
-      <file>${PROJECT_ROOT}/Functions/Interface/get_settings.m</file>
-      <file>${PROJECT_ROOT}/Functions/Interface/pix_settings.m</file>
-      <file>${PROJECT_ROOT}/Functions/Interface/run_directory.m</file>
-      <file>${PROJECT_ROOT}/Functions/Utility/MultiEquiv.m</file>
-      <file>${PROJECT_ROOT}/Functions/Utility/cell2csv/cell2csv.m</file>
-      <file>${PROJECT_ROOT}/Functions/Utility/colorspace/colorspace/colorspace.m</file>
-      <file>${PROJECT_ROOT}/Functions/Utility/findLastDot.m</file>
-      <file>${PROJECT_ROOT}/Functions/Utility/findLastSlash.m</file>
-      <file>${PROJECT_ROOT}/Functions/Utility/gradient2Dx2.m</file>
-      <file>${PROJECT_ROOT}/Functions/Utility/ind2subv.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/BreakHighCurvSegs.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/BuildEndLib.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/RemoveShortFibers.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/SegMatch.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/StitchFibers2.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/distributePoints.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/fitAllFibers.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/fitAllSegments.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/getScores.m</file>
-      <file>${PROJECT_ROOT}/Functions/Vectorization/interp2D.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/Angle_Legend.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/FLD_hist.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/FWD_hist.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/FiberVecPlot_segs.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/FiberVecPlot_stitch.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/FiberVec_ACM.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/ODist_plot.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/imshowGT.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/plotGT.m</file>
-      <file>${PROJECT_ROOT}/Functions/Visualization/plotS2D.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/CoherenceFilter.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions/derivatives.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions/derivatives.mexmaci64</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions/imgaussian.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions/imgaussian.mexmaci64</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/CoherenceFilterStep2D.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/CoherenceFilterStep2D.mexmaci64</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/ConstructDiffusionTensor2D.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/EigenVectors2D.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/StructureTensor2D.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/diffusion_scheme_2D_implicit.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/diffusion_scheme_2D_non_negativity.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/diffusion_scheme_2D_novel.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/diffusion_scheme_2D_rotation_invariant.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions2D/diffusion_scheme_2D_standard.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/CoherenceFilterStep3D.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/CoherenceFilterStep3D.mexmaci64</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/StructureTensor2DiffusionTensor3D.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/StructureTensor2DiffusionTensor3D.mexmaci64</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/StructureTensor3D.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_implicit.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_non_negativity.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_non_negativity.mexmaci64</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_novel.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_novel_getUpdate.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_novel_getUpdate.mexmaci64</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_rotation_invariant.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_rotation_invariant.mexmaci64</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_standard.m</file>
-      <file>${PROJECT_ROOT}/Functions/coherencefilter_version5b/functions3D/diffusion_scheme_3D_standard.mexmaci64</file>
-      <file>${PROJECT_ROOT}/GTFiber.fig</file>
+      <file>${PROJECT_ROOT}\Functions\Analysis\calc_orient_dist.m</file>
+      <file>${PROJECT_ROOT}\Functions\Analysis\FiberLengths.m</file>
+      <file>${PROJECT_ROOT}\Functions\Analysis\FiberWidths.m</file>
+      <file>${PROJECT_ROOT}\Functions\Analysis\op2d_vec.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\CoherenceFilter.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\CoherenceFilterStep2D.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\CoherenceFilterStep2D.mexmaci64</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\ConstructDiffusionTensor2D.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\diffusion_scheme_2D_implicit.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\diffusion_scheme_2D_non_negativity.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\diffusion_scheme_2D_novel.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\diffusion_scheme_2D_rotation_invariant.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\diffusion_scheme_2D_standard.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\EigenVectors2D.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions2D\StructureTensor2D.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\CoherenceFilterStep3D.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\CoherenceFilterStep3D.mexmaci64</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_implicit.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_non_negativity.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_non_negativity.mexmaci64</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_novel.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_novel_getUpdate.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_novel_getUpdate.mexmaci64</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_rotation_invariant.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_rotation_invariant.mexmaci64</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_standard.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\diffusion_scheme_3D_standard.mexmaci64</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\StructureTensor2DiffusionTensor3D.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\StructureTensor2DiffusionTensor3D.mexmaci64</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions3D\StructureTensor3D.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions\derivatives.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions\derivatives.mexmaci64</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions\imgaussian.m</file>
+      <file>${PROJECT_ROOT}\Functions\coherencefilter_version5b\functions\imgaussian.mexmaci64</file>
+      <file>${PROJECT_ROOT}\Functions\ImageProcessing\CleanSkeleton.m</file>
+      <file>${PROJECT_ROOT}\Functions\ImageProcessing\initImgData.m</file>
+      <file>${PROJECT_ROOT}\Functions\ImageProcessing\main_filter.m</file>
+      <file>${PROJECT_ROOT}\Functions\ImageProcessing\RemoveBranches.m</file>
+      <file>${PROJECT_ROOT}\Functions\ImageProcessing\RemoveNonLines.m</file>
+      <file>${PROJECT_ROOT}\Functions\Interface\get_settings.m</file>
+      <file>${PROJECT_ROOT}\Functions\Interface\pix_settings.m</file>
+      <file>${PROJECT_ROOT}\Functions\Interface\run_directory.m</file>
+      <file>${PROJECT_ROOT}\Functions\Utility\cell2csv\cell2csv.m</file>
+      <file>${PROJECT_ROOT}\Functions\Utility\colorspace\colorspace\colorspace.m</file>
+      <file>${PROJECT_ROOT}\Functions\Utility\findLastDot.m</file>
+      <file>${PROJECT_ROOT}\Functions\Utility\findLastSlash.m</file>
+      <file>${PROJECT_ROOT}\Functions\Utility\gradient2Dx2.m</file>
+      <file>${PROJECT_ROOT}\Functions\Utility\ind2subv.m</file>
+      <file>${PROJECT_ROOT}\Functions\Utility\MultiEquiv.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\BreakHighCurvSegs.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\BuildEndLib.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\distributePoints.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\fitAllFibers.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\fitAllSegments.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\getScores.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\interp2D.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\RemoveShortFibers.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\SegMatch.m</file>
+      <file>${PROJECT_ROOT}\Functions\Vectorization\StitchFibers2.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\Angle_Legend.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\FiberVec_ACM.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\FiberVecPlot_segs.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\FiberVecPlot_stitch.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\FLD_hist.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\FWD_hist.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\imshowGT.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\ODist_plot.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\plotGT.m</file>
+      <file>${PROJECT_ROOT}\Functions\Visualization\plotS2D.m</file>
+      <file>${PROJECT_ROOT}\GTFiber.fig</file>
     </fileset.depfun>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="GTFiber.app" optional="false">/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber/for_testing/GTFiber.app</file>
-      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="run_GTFiber.sh" optional="false">/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber/for_testing/run_GTFiber.sh</file>
-      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="splash.png" optional="false">/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber/for_testing/splash.png</file>
-      <file location="${PROJECT_ROOT}/GTFiber/for_testing" name="readme.txt" optional="true">/Users/Imperssonator/Documents/MATLAB/GTFiber-Mac/GTFiber/for_testing/readme.txt</file>
+      <file location="${PROJECT_ROOT}\GTFiber\for_testing" name="splash.png" optional="false">C:\Users\fur\MATLAB\Projects\GTFiber2b\GTFiber\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\GTFiber\for_testing" name="GTFiber2b.exe" optional="false">C:\Users\fur\MATLAB\Projects\GTFiber2b\GTFiber\for_testing\GTFiber2b.exe</file>
+      <file location="${PROJECT_ROOT}\GTFiber\for_testing" name="readme.txt" optional="true">C:\Users\fur\MATLAB\Projects\GTFiber2b\GTFiber\for_testing\readme.txt</file>
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>/Applications/MATLAB_R2016b.app</root>
+      <root>C:\Program Files\MATLAB\R2022b</root>
       <toolboxes>
-        <toolbox name="fixedpoint" />
         <toolbox name="matlabcoder" />
-        <toolbox name="matlabhdlcoder" />
-        <toolbox name="embeddedcoder" />
+        <toolbox name="gpucoder" />
+        <toolbox name="neuralnetwork" />
       </toolboxes>
-      <toolbox>
-        <fixedpoint>
-          <enabled>true</enabled>
-        </fixedpoint>
-      </toolbox>
       <toolbox>
         <matlabcoder>
           <enabled>true</enabled>
         </matlabcoder>
       </toolbox>
       <toolbox>
-        <matlabhdlcoder>
+        <gpucoder>
           <enabled>true</enabled>
-        </matlabhdlcoder>
+        </gpucoder>
       </toolbox>
       <toolbox>
-        <embeddedcoder>
+        <neuralnetwork>
           <enabled>true</enabled>
-        </embeddedcoder>
+        </neuralnetwork>
       </toolbox>
     </matlab>
     <platform>
-      <unix>true</unix>
-      <mac>true</mac>
-      <windows>false</windows>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
       <win2k>false</win2k>
       <winxp>false</winxp>
       <vista>false</vista>
       <linux>false</linux>
       <solaris>false</solaris>
-      <osver>10.11.6</osver>
+      <osver>10.0</osver>
       <os32>false</os32>
       <os64>true</os64>
-      <arch>maci64</arch>
+      <arch>win64</arch>
       <matlab>true</matlab>
     </platform>
   </configuration>
