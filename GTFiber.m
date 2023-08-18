@@ -683,6 +683,7 @@ function Load_Setting_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 handles.ims.settings = get_settings(handles);
 handles.ims = pix_settings(handles.ims);
+
 [filename, folderpath] = uigetfile({'*.mat','mat File'});
 [filepath0,filename_wo_ext,ext0] = fileparts(filename);
 if isequal(filename, 0); return; end % Cancel button pressed
@@ -691,6 +692,9 @@ tempSettings = load(fileNameLastSetting, filename_wo_ext);
 handles.ims.settings = tempSettings.(filename_wo_ext);
 clear('tempSettings');
 set_settings(handles);
+
+handles.ims.settings = get_settings(handles);
+handles.ims = pix_settings(handles.ims);
 
 guidata(hObject, handles);
 
@@ -754,3 +758,4 @@ set(handles.minFibLen, 'String', num2str(minFibLen));
 %set(handles.maxBranchSize, 'String', num2str(maxBranchSize));
 %set(handles.searchLat, 'String', num2str(searchLat));
 %set(handles.searchLong, 'String', num2str(searchLong));
+
