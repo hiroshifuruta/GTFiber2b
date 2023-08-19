@@ -48,12 +48,14 @@ ims = calc_orient_dist(ims);
 ims = FiberLengths(ims,0);
 ims = FiberWidths(ims);
 
-save('last_result','ims');
-disp('Calculated with Current settings of')
+disp('Calculated with Current settings of');
 disp(ims.settings);
 
-%save('last_settings', "ims.settings");
-%save('settings', 'ims.settings');
+[folderPath,fileName, ext0] = fileparts(ims.imPath);
+saveFileNameLastResult = fullfile(folderPath,[fileName,'_last_result']);
+save(saveFileNameLastResult,'ims');
+disp(['last_result was saved in ', saveFileNameLastResult]);
+
 disp('Stitch Fibers finished.');
 close(hwait)
 
