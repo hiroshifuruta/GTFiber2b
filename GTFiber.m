@@ -30,7 +30,7 @@ function varargout = GTFiber(varargin)
 
 % Edit the above text to modify the response to help GTFiber
 
-% Last Modified by GUIDE v2.5 17-Aug-2023 23:56:12
+% Last Modified by GUIDE v2.5 19-Aug-2023 00:53:37
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -60,7 +60,12 @@ handles.output = hObject;
 
 if ~(ismcc || isdeployed)
     addpath(genpath(pwd)); % MATLAB:mpath:PathAlterationNotSupported in compiled application mode.
+    set(handles.modeDispBox,'String',"App mode");
+else
+    set(handles.modeDispBox,'String',"Deploy mode");
 end
+guidata(hObject, handles);
+
 
 % Update handles structure
 guidata(hObject, handles);
@@ -685,8 +690,8 @@ handles.ims.settings = get_settings(handles);
 handles.ims = pix_settings(handles.ims);
 
 [filename, folderpath] = uigetfile({'*.mat','mat File'});
-[filepath0,filename_wo_ext,ext0] = fileparts(filename);
 if isequal(filename, 0); return; end % Cancel button pressed
+[filepath0,filename_wo_ext,ext0] = fileparts(filename);
 fileNameLastSetting = [folderpath, filename];
 tempSettings = load(fileNameLastSetting, filename_wo_ext);
 handles.ims.settings = tempSettings.(filename_wo_ext);
@@ -699,6 +704,7 @@ handles.ims = pix_settings(handles.ims);
 guidata(hObject, handles);
 
 function set_settings(handles)
+
 nmWid = handles.ims.settings.nmWid;
 invert = handles.ims.settings.invert;
 thnm = handles.ims.settings.thnm;
@@ -742,20 +748,10 @@ set(handles.saveFigs, 'Value', figSave);
 set(handles.gauss, 'String', num2str(gaussnm));
 set(handles.rho, 'String', num2str(rhonm));
 set(handles.difftime, 'String', num2str(Options.T));
-%set(handles.fibWidSamps2, 'String', num2str(fibWidSamps2));
+
 set(handles.fiberStep, 'String', num2str(fiberStep_nm));
 set(handles.maxCurv, 'String', num2str(maxCurv*1000));
 set(handles.stitchGap, 'String', num2str(stitchGap));
 set(handles.minFibLen, 'String', num2str(minFibLen));
-%set(handles.initDelay, 'String', num2str(initDelay));
-%set(handles.CEDStepDelay, 'String', num2str(CEDStepDelay));
-%set(handles.CEDFinalDelay, 'String', num2str(CEDFinalDelay));
-%set(handles.skelDelay, 'String', num2str(skelDelay));
-%set(handles.plotDelay, 'String', num2str(plotDelay));
-%set(handles.plotFinal, 'String', num2str(plotFinal));
-%set(handles.thpix, 'String', num2str(thpix));
-%set(handles.noisepix, 'String', num2str(noisepix));
-%set(handles.maxBranchSize, 'String', num2str(maxBranchSize));
-%set(handles.searchLat, 'String', num2str(searchLat));
-%set(handles.searchLong, 'String', num2str(searchLong));
+
 
