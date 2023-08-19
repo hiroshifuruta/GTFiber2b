@@ -64,6 +64,7 @@ if ~(ismcc || isdeployed)
 else
     set(handles.modeDispBox,'String',"Deploy mode");
 end
+
 guidata(hObject, handles);
 
 
