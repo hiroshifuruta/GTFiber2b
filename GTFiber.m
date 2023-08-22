@@ -65,7 +65,7 @@ else
     set(handles.modeDispBox,'String',"Deploy mode");
 end
 
-guidata(hObject, handles);
+% guidata(hObject, handles);
 
 
 % Update handles structure
@@ -660,7 +660,10 @@ function Save_Setting_Callback(hObject, eventdata, handles)
 % hObject    handle to Save_Setting (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+if ~isfield(handles.ims,'settings')
+    noload = errordlg('Settings are empty. Load settings before save settings.');
+    return
+end
 last_settings = handles.ims.settings;
 save('last_settings', "last_settings");
 disp("settings saved to last_settings");
