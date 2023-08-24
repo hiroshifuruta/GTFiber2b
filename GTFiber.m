@@ -65,7 +65,7 @@ else
     set(handles.modeDispBox,'String',"Deploy mode");
 end
 
-guidata(hObject, handles);
+% guidata(hObject, handles);
 
 
 % Update handles structure
@@ -663,10 +663,16 @@ function Save_Setting_Callback(hObject, eventdata, handles)
 % hObject    handle to Save_Setting (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
 % Get Settings
 
 handles.ims.settings = get_settings(handles);
 handles.ims = pix_settings(handles.ims);
+
+if ~isfield(handles.ims,'settings')
+    noload = errordlg('Settings are empty. Load settings before save settings.');
+    return
+end
 
 last_settings = handles.ims.settings;
 
@@ -695,8 +701,9 @@ function Load_Setting_Callback(hObject, eventdata, handles)
 % hObject    handle to Load_Setting (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
 handles.ims.settings = get_settings(handles);
-handles.ims = pix_settings(handles.ims);
+% handles.ims = pix_settings(handles.ims);
 
 [filename, folderpath] = uigetfile({'*.mat','mat File'});
 if isequal(filename, 0); return; end % Cancel button pressed
@@ -708,7 +715,7 @@ clear('tempSettings');
 set_settings(handles);
 
 handles.ims.settings = get_settings(handles);
-handles.ims = pix_settings(handles.ims);
+%handles.ims = pix_settings(handles.ims);
 
 guidata(hObject, handles);
 
