@@ -92,8 +92,11 @@ if isequal(filename, 0); return; end % Cancel button pressed
 prompt = {'Enter image width in nanometers, with no commas (ex. 5000):'};
 dlg_title = 'Image Scale';
 num_lines = 1;
-answer = inputdlg(prompt,dlg_title,num_lines);
-set(handles.nmWid,'String',answer{1})
+
+definput = {handles.nmWid.String};
+
+answer = inputdlg(prompt,dlg_title,num_lines,definput);
+set(handles.nmWid,'String',answer{1});
 nmWid_Callback(hObject, eventdata, handles);
 
 % Initialize the internal image data structure, "ims"
@@ -660,8 +663,13 @@ function Save_Setting_Callback(hObject, eventdata, handles)
 % hObject    handle to Save_Setting (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+% Get Settings
+
+handles.ims.settings = get_settings(handles);
+handles.ims = pix_settings(handles.ims);
 
 last_settings = handles.ims.settings;
+
 save('last_settings', "last_settings");
 disp("settings saved to last_settings");
 
@@ -694,8 +702,8 @@ handles.ims = pix_settings(handles.ims);
 if isequal(filename, 0); return; end % Cancel button pressed
 [filepath0,filename_wo_ext,ext0] = fileparts(filename);
 fileNameLastSetting = [folderpath, filename];
-tempSettings = load(fileNameLastSetting, filename_wo_ext);
-handles.ims.settings = tempSettings.(filename_wo_ext);
+tempSettings = load(fileNameLastSetting, "last_settings");
+handles.ims.settings = tempSettings.last_settings;
 clear('tempSettings');
 set_settings(handles);
 
