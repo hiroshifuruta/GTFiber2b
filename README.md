@@ -1,3 +1,4 @@
+# This is a Fork of original GTFiber2 https://github.com/Imperssonator/GTFiber2
 # GTFiber 2
 This is the public-facing repository for GTFiber 2.0. GTFiber is an open source program for automated quantitative analysis of images of fibrillar microstructures.
 

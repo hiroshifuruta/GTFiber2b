@@ -30,7 +30,7 @@ function varargout = GTFiber(varargin)
 
 % Edit the above text to modify the response to help GTFiber
 
-% Last Modified by GUIDE v2.5 19-Aug-2023 00:53:37
+% Last Modified by GUIDE v2.5 25-Aug-2023 15:41:48
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -649,6 +649,41 @@ disp(['list of length was saved in', fileNameLength]);
 writematrix(transpose(handles.ims.FWD), fileNameWidth);
 disp(['list of width was saved in', fileNameWidth]);
 
+% Initialize the Cell for the csv file
+xl = cell(2,7);
+xl{1,1} = 'Image Name';
+xl{1,2} = 'Sfull fit';
+xl{1,3} = 'Correlation Length (nm)';
+xl{1,4} = 'Average Orientation (degrees)';
+xl{1,5} = 'Fiber Length Density (1/um)';
+xl{1,6} = 'Mean Fiber Length (nm)';
+xl{1,7} = 'Mean Fiber Width (nm)';
+
+% Write data to csv cell
+xl{2,1} = handles.ims.imName;
+xl{2,2} = handles.ims.op2d.Sfull;
+xl{2,3} = handles.ims.op2d.decayLen;
+xl{2,4} = handles.ims.ODist.director;
+xl{2,5} = handles.ims.fibLengthDensity;
+xl{2,6} = mean(handles.ims.FLD);
+xl{2,7} = mean(handles.ims.FWD);
+
+    if handles.ims.settings.figSave
+        mkdir(handles.ims.imNamePath);  % make the directory to save the results figures
+    end
+
+    % Save figures if specified
+    if handles.ims.settings.figSave
+        ODist_plot(handles.ims,1);
+        plotS2D(handles.ims,1);
+        handles = FiberVecPlot_stitch(handles,1);
+        FLD_hist(handles.ims,1);
+        FWD_hist(handles.ims,1);
+    end
+
+savePath = handles.ims.imNamePath;
+saveFilePath = [savePath, '.csv'];
+cell2csv(saveFilePath, xl, ',', 1999, '.');
 
 % --- Executes on button press in pushbuttonExportResults13.
 function pushbuttonExportResults13_Callback(hObject, eventdata, handles)
@@ -769,5 +804,3 @@ set(handles.fiberStep, 'String', num2str(fiberStep_nm));
 set(handles.maxCurv, 'String', num2str(maxCurv*1000));
 set(handles.stitchGap, 'String', num2str(stitchGap));
 set(handles.minFibLen, 'String', num2str(minFibLen));
-
-
