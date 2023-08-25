@@ -104,6 +104,11 @@ imfile = [folderpath, filename];
 handles.ims = initImgData(imfile);
 set(handles.fileNameBox,'String',handles.ims.imName);
 
+% change color of "1. Run Filter" button after image loading
+%set(handles.Coherence_Filter,'BackgroundColor', "#4DBEEE");
+set(handles.Coherence_Filter,'ForegroundColor', 'black');
+set(handles.runStitch,'ForegroundColor', [0.7, 0.7, 0.7]);
+
 % Initialize the figure window and don't let the user close it
 handles = imshowGT(handles.ims.img,handles,'img_axes');
 
@@ -123,6 +128,9 @@ handles.ims = pix_settings(handles.ims);
 
 % Run Filter Regime
 handles = main_filter(handles);
+
+set(handles.Coherence_Filter,'ForegroundColor', 'black');
+set(handles.runStitch,'ForegroundColor', 'black');
 
 guidata(hObject, handles);
 
