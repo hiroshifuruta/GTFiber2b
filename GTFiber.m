@@ -30,7 +30,7 @@ function varargout = GTFiber(varargin)
 
 % Edit the above text to modify the response to help GTFiber
 
-% Last Modified by GUIDE v2.5 25-Aug-2023 15:41:48
+% Last Modified by GUIDE v2.5 26-Aug-2023 14:00:03
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -112,6 +112,8 @@ set(handles.runStitch,'ForegroundColor', [0.7, 0.7, 0.7]);
 % Initialize the figure window and don't let the user close it
 handles = imshowGT(handles.ims.img,handles,'img_axes');
 
+disp("Ready for Run Filter");
+
 guidata(hObject, handles);
 
 
@@ -131,6 +133,7 @@ handles = main_filter(handles);
 
 set(handles.Coherence_Filter,'ForegroundColor', 'black');
 set(handles.runStitch,'ForegroundColor', 'black');
+disp("Ready for Stitch Fibers");
 
 guidata(hObject, handles);
 
@@ -155,6 +158,7 @@ handles.ims = pix_settings(handles.ims);
 handles.ims = StitchFibers2(handles.ims);
 handles = FiberVecPlot_stitch(handles);
 
+disp("Ready for Export Results");
 guidata(hObject, handles);
 
 
@@ -677,7 +681,9 @@ xl{2,6} = mean(handles.ims.FLD);
 xl{2,7} = mean(handles.ims.FWD);
 
     if handles.ims.settings.figSave
-        mkdir(handles.ims.imNamePath);  % make the directory to save the results figures
+        if exist(handles.ims.imNamePath)==0
+            mkdir(handles.ims.imNamePath);  % make the directory to save the results figures
+        end
     end
 
     % Save figures if specified
@@ -692,6 +698,7 @@ xl{2,7} = mean(handles.ims.FWD);
 savePath = handles.ims.imNamePath;
 saveFilePath = [savePath, '.csv'];
 cell2csv(saveFilePath, xl, ',', 1999, '.');
+disp("Exported results.");
 
 % --- Executes on button press in pushbuttonExportResults13.
 function pushbuttonExportResults13_Callback(hObject, eventdata, handles)
@@ -812,3 +819,26 @@ set(handles.fiberStep, 'String', num2str(fiberStep_nm));
 set(handles.maxCurv, 'String', num2str(maxCurv*1000));
 set(handles.stitchGap, 'String', num2str(stitchGap));
 set(handles.minFibLen, 'String', num2str(minFibLen));
+
+
+% --- Executes on button press in pbImage.
+function pbImage_Callback(hObject, eventdata, handles)
+% hObject    handle to pbImage (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+Load_Callback(hObject, eventdata, handles);
+
+waitfor(isfield(handles,'ims'));
+
+Coherence_Filter_Callback(hObject, eventdata, handles);
+
+waitfor(isfield(handles.ims,'skelTrim'));
+
+runStitch_Callback(hObject, eventdata, handles);
+
+waitfor(isfield(handles.ims,'Fibers'));
+
+Export_Callback(hObject, eventdata, handles); % call Export_Callback function from menu
+
+
