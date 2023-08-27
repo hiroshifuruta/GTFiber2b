@@ -85,6 +85,22 @@ function Main_Callback(hObject, eventdata, handles)
 
 function Load_Callback(hObject, eventdata, handles)
 
+h=get(groot, 'Children'); % ウインドウオブジェクトを全て取得
+for i=1:length(h)
+  if ~strcmp( h(i).Tag, 'mainFig')
+      close(h(i)); %　メインウインドウ以外を閉じる
+  end
+end
+
+
+%if ~isfield(handles,'ims')
+%    loadpath = '';
+%elseif ~isfield(handles.ims, 'imPath')
+%    loadpath = '';
+%else 
+%     [loadpath,filename_wo_ext0,ext0] = fileparts(handles.ims.imPath);
+%end
+
 [filename, folderpath] = uigetfile({'*.jpg;*.jpeg;*.tif;*.tiff;*.png;*.gif;*.bmp','All Image Files'});
 if isequal(filename, 0); return; end % Cancel button pressed
 
@@ -104,8 +120,10 @@ imfile = [folderpath, filename];
 handles.ims = initImgData(imfile);
 set(handles.fileNameBox,'String',handles.ims.imName);
 
+%waitfor(isfield(handles.ims,'img'));
+%waitfor(handles.ims.img);
+
 % change color of "1. Run Filter" button after image loading
-%set(handles.Coherence_Filter,'BackgroundColor', "#4DBEEE");
 set(handles.Coherence_Filter,'ForegroundColor', 'black');
 set(handles.runStitch,'ForegroundColor', [0.7, 0.7, 0.7]);
 
@@ -145,10 +163,10 @@ if ~isfield(handles,'ims')
     return
 end
 
-if ~isfield(handles.ims,'skelTrim')
-    noload = errordlg('Go to File>Load Image to load an image, then Run Filter.');
-    return
-end
+%if ~isfield(handles.ims,'skelTrim')
+%    noload = errordlg('Go to File>Load Image to load an image, then Run Filter.');
+%    return
+%end
 
 % Get Settings
 handles.ims.settings = get_settings(handles);
@@ -638,6 +656,8 @@ function Export_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+
+
 if ~isfield(handles,'ims')
     noload = errordlg('Go to File>Load Image to load an image before exporting.');
     return
@@ -656,8 +676,12 @@ fileNameLength = fullfile(outputFolderName,strcat(handles.ims.imName,'_FLD.txt')
 fileNameWidth = fullfile(outputFolderName,strcat(handles.ims.imName,'_FWD.txt'));
 %disp(fileNameLength);
 %(fileNameLength,'ims');
+waitfor(isfield(handles.ims,'FLD'));
+%%waitfor(handles.ims.FLD);
 writematrix(handles.ims.FLD, fileNameLength);
 disp(['list of length was saved in', fileNameLength]);
+waitfor(isfield(handles.ims,'FWD'));
+%%waitfor(handles.ims.FWD);
 writematrix(transpose(handles.ims.FWD), fileNameWidth);
 disp(['list of width was saved in', fileNameWidth]);
 
@@ -717,6 +741,12 @@ function Save_Setting_Callback(hObject, eventdata, handles)
 % Get Settings
 
 handles.ims.settings = get_settings(handles);
+
+if ~isfield(handles.ims,'img')
+    noload = errordlg('Load Image files before save settings to receive pix size.');
+    return
+end
+
 handles.ims = pix_settings(handles.ims);
 
 if ~isfield(handles.ims,'settings')
@@ -724,9 +754,12 @@ if ~isfield(handles.ims,'settings')
     return
 end
 
+
 last_settings = handles.ims.settings;
 
-save('last_settings', "last_settings");
+[fileout,pathout,indx] = uiputfile('*.*','File Selection','last_settings.mat');
+filename = fullfile(pathout,fileout);
+save(filename, "last_settings");
 disp("settings saved to last_settings");
 
 
@@ -827,18 +860,34 @@ function pbImage_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-Load_Callback(hObject, eventdata, handles);
+%Load_Callback(hObject, eventdata, handles);
+%Coherence_Filter_Callback(hObject, eventdata, handles);
+%runStitch_Callback(hObject, eventdata, handles);
+%Export_Callback(hObject, eventdata, handles); % call Export_Callback function from menu
 
-waitfor(isfield(handles,'ims'));
+h=get(groot, 'Children'); % ウインドウオブジェクトを全て取得
+for i=1:length(h)
+  if ~strcmp( h(i).Tag, 'mainFig')
+      close(h(i)); %　メインウインドウ以外を閉じる
+  end
+end
 
-Coherence_Filter_Callback(hObject, eventdata, handles);
+[filename, folderPath] = uigetfile({'*.jpg;*.jpeg;*.tif;*.tiff;*.png;*.gif;*.bmp','All Image Files'});
+if isequal(filename, 0); return; end % Cancel button pressed
 
-waitfor(isfield(handles.ims,'skelTrim'));
+%if ispc
+%    separator = '\';
+%else
+%    separator = '/';
+%end
 
-runStitch_Callback(hObject, eventdata, handles);
+%folderPath = [folderPath, separator];
+filePath = [folderPath,filename];
+% Get name for results file
+[folderPath0,filename_wo_ext, file_ext] = fileparts(filePath);
+saveFilePath = [folderPath, filename_wo_ext, '.csv'];
 
-waitfor(isfield(handles.ims,'Fibers'));
+run_file(hObject,eventdata, handles,filePath,saveFilePath);
 
-Export_Callback(hObject, eventdata, handles); % call Export_Callback function from menu
 
 
