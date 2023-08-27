@@ -93,14 +93,6 @@ for i=1:length(h)
 end
 
 
-%if ~isfield(handles,'ims')
-%    loadpath = '';
-%elseif ~isfield(handles.ims, 'imPath')
-%    loadpath = '';
-%else 
-%     [loadpath,filename_wo_ext0,ext0] = fileparts(handles.ims.imPath);
-%end
-
 [filename, folderpath] = uigetfile({'*.jpg;*.jpeg;*.tif;*.tiff;*.png;*.gif;*.bmp','All Image Files'});
 if isequal(filename, 0); return; end % Cancel button pressed
 
@@ -753,7 +745,6 @@ if ~isfield(handles.ims,'settings')
     noload = errordlg('Settings are empty. Load settings before save settings.');
     return
 end
-
 
 last_settings = handles.ims.settings;
 

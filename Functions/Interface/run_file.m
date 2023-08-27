@@ -6,6 +6,9 @@ function xl = run_file(hObject,eventdata, handles,filePath,savePath)
 % visualizations to folder with image file's name
 
 %hwaitfile = waitbar(0,'Running File...');
+[FolderPath0,fileName_wo_ext,fileExt] = fileparts(filePath);
+fileName = [fileName_wo_ext,fileExt];
+set(handles.fileNameBox,'String',fileName);
 
 imdir = CompileImg(filePath);
 numIms = 1;
