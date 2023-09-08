@@ -81,7 +81,11 @@ varargout{1} = handles.output;
 
 
 function Main_Callback(hObject, eventdata, handles)
-
+if isfield(handles, 'ims')
+    if isfield(handles.ims, 'settings')
+        set(handles.Save_Setting, 'Enable', 'on');
+    end
+end
 
 function Load_Callback(hObject, eventdata, handles)
 
@@ -760,7 +764,7 @@ last_settings = handles.ims.settings;
 [fileout,pathout,indx] = uiputfile('*.*','File Selection','last_settings.mat');
 filename = fullfile(pathout,fileout);
 save(filename, "last_settings");
-disp("settings saved to last_settings");
+disp("settings saved to " + filename);
 
 
 % --- If Enable == 'on', executes on mouse press in 5 pixel border.
