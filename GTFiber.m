@@ -851,11 +851,6 @@ function pbImage_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-%Load_Callback(hObject, eventdata, handles);
-%Coherence_Filter_Callback(hObject, eventdata, handles);
-%runStitch_Callback(hObject, eventdata, handles);
-%Export_Callback(hObject, eventdata, handles); % call Export_Callback function from menu
-
 h=get(groot, 'Children'); % ウインドウオブジェクトを全て取得
 for i=1:length(h)
   if ~strcmp( h(i).Tag, 'mainFig')
@@ -863,20 +858,24 @@ for i=1:length(h)
   end
 end
 
-[filename, folderPath] = uigetfile({'*.jpg;*.jpeg;*.tif;*.tiff;*.png;*.gif;*.bmp','All Image Files'});
-if isequal(filename, 0); return; end % Cancel button pressed
-
-%if ispc
-%    separator = '\';
-%else
-%    separator = '/';
+%if isfield(handles.ims, '')
+%    previousimPath = ''
+%else previousimPath = handles.ims.imPath;
 %end
 
-%folderPath = [folderPath, separator];
+
+[filename, folderPath] = uigetfile({'*.jpg;*.jpeg;*.tif;*.tiff;*.png;*.gif;*.bmp','All Image Files',previousimPath});
+if isequal(filename, 0); return; end % Cancel button pressed
+
 filePath = [folderPath,filename];
+
+set(handles.fileNameBox,'String',filename);
+guidata(hObject, handles);
+
 % Get name for results file
 [folderPath0,filename_wo_ext, file_ext] = fileparts(filePath);
 saveFilePath = [folderPath, filename_wo_ext, '.csv'];
+
 
 run_file(hObject,eventdata, handles,filePath,saveFilePath);
 
