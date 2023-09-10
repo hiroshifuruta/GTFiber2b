@@ -657,7 +657,6 @@ function Export_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 
-
 if ~isfield(handles,'ims')
     noload = errordlg('Go to File>Load Image to load an image before exporting.');
     return
@@ -669,21 +668,23 @@ if ~isfield(handles.ims,'Fibers')
 end
 
 [outputFolderName,name0, ext0] = fileparts(handles.ims.imPath);
-%addpath(genpath(folderNameLength));
 disp(['exporting length and width in ', outputFolderName]);
-%disp(outputFolderName);
 fileNameLength = fullfile(outputFolderName,strcat(handles.ims.imName,'_FLD.txt'));
 fileNameWidth = fullfile(outputFolderName,strcat(handles.ims.imName,'_FWD.txt'));
-%disp(fileNameLength);
-%(fileNameLength,'ims');
+fileNameLW = fullfile(outputFolderName, strcat(handles.ims.imName, '_FLWD.csv'));
 waitfor(isfield(handles.ims,'FLD'));
-%%waitfor(handles.ims.FLD);
-writematrix(handles.ims.FLD, fileNameLength);
-disp(['list of length was saved in', fileNameLength]);
+%writematrix(handles.ims.FLD, fileNameLength);
+%disp(['list of length was saved in', fileNameLength]);
 waitfor(isfield(handles.ims,'FWD'));
-%%waitfor(handles.ims.FWD);
-writematrix(transpose(handles.ims.FWD), fileNameWidth);
-disp(['list of width was saved in', fileNameWidth]);
+%writematrix(transpose(handles.ims.FWD), fileNameWidth);
+%disp(['list of width was saved in', fileNameWidth]);
+
+FLD = handles.ims.FLD;
+FWD = transpose(handles.ims.FWD);
+
+FLWD = [FLD, FWD];
+
+writematrix(FLWD, fileNameLW);
 
 % Initialize the Cell for the csv file
 xl = cell(2,7);
@@ -871,7 +872,6 @@ end
 %else previousimPath = handles.ims.imPath;
 %end
 
-
 [filename, folderPath] = uigetfile({'*.jpg;*.jpeg;*.tif;*.tiff;*.png;*.gif;*.bmp','All Image Files',previousimPath});
 if isequal(filename, 0); return; end % Cancel button pressed
 
@@ -884,11 +884,7 @@ guidata(hObject, handles);
 [folderPath0,filename_wo_ext, file_ext] = fileparts(filePath);
 saveFilePath = [folderPath, filename_wo_ext, '.csv'];
 
-
 run_file(hObject,eventdata, handles,filePath,saveFilePath);
-
-
-
 
 
 % --------------------------------------------------------------------
