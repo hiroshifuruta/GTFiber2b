@@ -30,7 +30,7 @@ function varargout = GTFiber(varargin)
 
 % Edit the above text to modify the response to help GTFiber
 
-% Last Modified by GUIDE v2.5 26-Aug-2023 14:00:03
+% Last Modified by GUIDE v2.5 10-Sep-2023 16:25:20
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -167,6 +167,14 @@ handles.ims = pix_settings(handles.ims);
 % Stitch fiber segments and calculate length
 handles.ims = StitchFibers2(handles.ims);
 handles = FiberVecPlot_stitch(handles);
+
+if strcmp(get(handles.Option,'Checked'),'on')
+    [folderPath,fileName, ext0] = fileparts(ims.imPath);
+    saveFileNameLastResult = fullfile(folderPath,[fileName,'_last_result']);
+    save(saveFileNameLastResult,'ims');
+    disp(['last_result was saved in ', saveFileNameLastResult]);
+
+end
 
 disp("Ready for Export Results");
 guidata(hObject, handles);
@@ -880,4 +888,24 @@ saveFilePath = [folderPath, filename_wo_ext, '.csv'];
 run_file(hObject,eventdata, handles,filePath,saveFilePath);
 
 
+
+
+
+% --------------------------------------------------------------------
+function Option_Callback(hObject, eventdata, handles)
+% hObject    handle to Option (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function save_mat_file_Callback(hObject, eventdata, handles)
+% hObject    handle to save_mat_file (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if strcmp(get(hObject,'Checked'),'on')
+    set(hObject,'Checked','off');
+else 
+    set(hObject,'Checked','on');
+end
 
