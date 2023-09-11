@@ -30,7 +30,7 @@ function varargout = GTFiber(varargin)
 
 % Edit the above text to modify the response to help GTFiber
 
-% Last Modified by GUIDE v2.5 10-Sep-2023 16:25:20
+% Last Modified by GUIDE v2.5 11-Sep-2023 11:49:43
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -913,3 +913,15 @@ else
     set(hObject,'Checked','on');
 end
 
+
+
+% --------------------------------------------------------------------
+function option_save_mat_Callback(hObject, eventdata, handles)
+% hObject    handle to option_save_mat (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if strcmp(get(hObject,'Checked'),'on')
+    set(hObject,'Checked','off');
+else 
+    set(hObject,'Checked','on');
+end
