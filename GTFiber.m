@@ -833,7 +833,6 @@ fiberStep = handles.ims.settings.fiberStep;
 searchLat = handles.ims.settings.searchLat;
 searchLong = handles.ims.settings.searchLong;
 
-
 set(handles.nmWid, 'String', num2str(nmWid));
 set(handles.invertColor,'Value', invert);
 set(handles.tophatSize, 'String', num2str(thnm));
