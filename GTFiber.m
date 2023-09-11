@@ -30,7 +30,7 @@ function varargout = GTFiber(varargin)
 
 % Edit the above text to modify the response to help GTFiber
 
-% Last Modified by GUIDE v2.5 10-Sep-2023 16:25:20
+% Last Modified by GUIDE v2.5 11-Sep-2023 11:49:43
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -81,7 +81,11 @@ varargout{1} = handles.output;
 
 
 function Main_Callback(hObject, eventdata, handles)
-
+if isfield(handles, 'ims')
+    if isfield(handles.ims, 'settings')
+        set(handles.Save_Setting, 'Enable', 'on');
+    end
+end
 
 function Load_Callback(hObject, eventdata, handles)
 
@@ -760,7 +764,7 @@ last_settings = handles.ims.settings;
 [fileout,pathout,indx] = uiputfile('*.*','File Selection','last_settings.mat');
 filename = fullfile(pathout,fileout);
 save(filename, "last_settings");
-disp("settings saved to last_settings");
+disp("settings saved to " + filename);
 
 
 % --- If Enable == 'on', executes on mouse press in 5 pixel border.
@@ -904,3 +908,15 @@ else
     set(hObject,'Checked','on');
 end
 
+
+
+% --------------------------------------------------------------------
+function option_save_mat_Callback(hObject, eventdata, handles)
+% hObject    handle to option_save_mat (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if strcmp(get(hObject,'Checked'),'on')
+    set(hObject,'Checked','off');
+else 
+    set(hObject,'Checked','on');
+end
