@@ -30,7 +30,7 @@ function varargout = GTFiber(varargin)
 
 % Edit the above text to modify the response to help GTFiber
 
-% Last Modified by GUIDE v2.5 26-Aug-2023 14:00:03
+% Last Modified by GUIDE v2.5 10-Sep-2023 16:25:20
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -96,14 +96,6 @@ for i=1:length(h)
   end
 end
 
-
-%if ~isfield(handles,'ims')
-%    loadpath = '';
-%elseif ~isfield(handles.ims, 'imPath')
-%    loadpath = '';
-%else 
-%     [loadpath,filename_wo_ext0,ext0] = fileparts(handles.ims.imPath);
-%end
 
 [filename, folderpath] = uigetfile({'*.jpg;*.jpeg;*.tif;*.tiff;*.png;*.gif;*.bmp','All Image Files'});
 if isequal(filename, 0); return; end % Cancel button pressed
@@ -179,6 +171,14 @@ handles.ims = pix_settings(handles.ims);
 % Stitch fiber segments and calculate length
 handles.ims = StitchFibers2(handles.ims);
 handles = FiberVecPlot_stitch(handles);
+
+if strcmp(get(handles.Option,'Checked'),'on')
+    [folderPath,fileName, ext0] = fileparts(ims.imPath);
+    saveFileNameLastResult = fullfile(folderPath,[fileName,'_last_result']);
+    save(saveFileNameLastResult,'ims');
+    disp(['last_result was saved in ', saveFileNameLastResult]);
+
+end
 
 disp("Ready for Export Results");
 guidata(hObject, handles);
@@ -758,7 +758,6 @@ if ~isfield(handles.ims,'settings')
     return
 end
 
-
 last_settings = handles.ims.settings;
 
 [fileout,pathout,indx] = uiputfile('*.*','File Selection','last_settings.mat');
@@ -864,11 +863,6 @@ function pbImage_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-%Load_Callback(hObject, eventdata, handles);
-%Coherence_Filter_Callback(hObject, eventdata, handles);
-%runStitch_Callback(hObject, eventdata, handles);
-%Export_Callback(hObject, eventdata, handles); % call Export_Callback function from menu
-
 h=get(groot, 'Children'); % ウインドウオブジェクトを全て取得
 for i=1:length(h)
   if ~strcmp( h(i).Tag, 'mainFig')
@@ -876,22 +870,46 @@ for i=1:length(h)
   end
 end
 
-[filename, folderPath] = uigetfile({'*.jpg;*.jpeg;*.tif;*.tiff;*.png;*.gif;*.bmp','All Image Files'});
-if isequal(filename, 0); return; end % Cancel button pressed
-
-%if ispc
-%    separator = '\';
-%else
-%    separator = '/';
+%if isfield(handles.ims, '')
+%    previousimPath = ''
+%else previousimPath = handles.ims.imPath;
 %end
 
-%folderPath = [folderPath, separator];
+
+[filename, folderPath] = uigetfile({'*.jpg;*.jpeg;*.tif;*.tiff;*.png;*.gif;*.bmp','All Image Files',previousimPath});
+if isequal(filename, 0); return; end % Cancel button pressed
+
 filePath = [folderPath,filename];
+
+set(handles.fileNameBox,'String',filename);
+guidata(hObject, handles);
+
 % Get name for results file
 [folderPath0,filename_wo_ext, file_ext] = fileparts(filePath);
 saveFilePath = [folderPath, filename_wo_ext, '.csv'];
 
+
 run_file(hObject,eventdata, handles,filePath,saveFilePath);
 
 
+
+
+
+% --------------------------------------------------------------------
+function Option_Callback(hObject, eventdata, handles)
+% hObject    handle to Option (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --------------------------------------------------------------------
+function save_mat_file_Callback(hObject, eventdata, handles)
+% hObject    handle to save_mat_file (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+if strcmp(get(hObject,'Checked'),'on')
+    set(hObject,'Checked','off');
+else 
+    set(hObject,'Checked','on');
+end
 

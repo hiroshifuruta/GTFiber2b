@@ -5,7 +5,9 @@ function xl = run_file(hObject,eventdata, handles,filePath,savePath)
 % specified by the current GUI parameters, save results to csv and save
 % visualizations to folder with image file's name
 
-%hwaitfile = waitbar(0,'Running File...');
+[FolderPath0,fileName_wo_ext,fileExt] = fileparts(filePath);
+fileName = [fileName_wo_ext,fileExt];
+set(handles.fileNameBox,'String',fileName);
 
 imdir = CompileImg(filePath);
 numIms = 1;
@@ -19,7 +21,6 @@ xl{1,4} = 'Average Orientation (degrees)';
 xl{1,5} = 'Fiber Length Density (1/um)';
 xl{1,6} = 'Mean Fiber Length (nm)';
 xl{1,7} = 'Mean Fiber Width (nm)';
-
 
 for i = 1:numIms
     

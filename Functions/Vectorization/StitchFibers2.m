@@ -50,11 +50,12 @@ ims = FiberWidths(ims);
 
 disp('Calculated with Current settings of');
 disp(ims.settings);
-
+last_settings = ims.settings;
 [folderPath,fileName, ext0] = fileparts(ims.imPath);
-saveFileNameLastResult = fullfile(folderPath,[fileName,'_last_result']);
-save(saveFileNameLastResult,'ims');
-disp(['last_result was saved in ', saveFileNameLastResult]);
+saveFileNameLastSettings = fullfile(folderPath,[fileName,'_last_settings']);
+save(saveFileNameLastSettings,'last_settings');
+disp(['last_setting was saved in ', saveFileNameLastSettings]);
+
 
 disp('Stitch Fibers finished.');
 close(hwait)
